@@ -1,0 +1,30 @@
+from tokenizers import (ByteLevelBPETokenizer, 
+                        CharBPETokenizer, 
+                        SentencePieceBPETokenizer, 
+                        BertWordPieceTokenizer)
+tokenizer = BertWordPieceTokenizer()
+
+path="../myfilepath.txt"
+
+tokenizer.train(files=path,` vocab_size=15_000, min_frequency=2,special_tokens=[
+    '<pad>',
+    '<s>',
+    '</s>',
+    '<unk>',  #note: I have also tried with "<UNK>"
+    '<mask>'
+])
+
+
+tokenizer.save(".", "/newBert")
+
+>>>['/newBert-vocab.txt']
+
+tokenizer = BertWordPieceTokenizer("/newBert-vocab.txt", lowercase=True)
+
+print(tokenizer)
+
+>>>Tokenizer(vocabulary_size=9937, model=BertWordPiece, add_special_tokens=True, unk_token=[UNK], sep_token=[SEP], cls_token=[CLS], clean_text=True, handle_chinese_chars=True, strip_accents=True, lowercase=True, wordpieces_prefix=##)
+
+output = tokenizer.encode("Hello, y'all! How are you?")
+print(output.tokens)
+>>>Exception: WordPiece error: Missing [UNK] token from the vocabulary
