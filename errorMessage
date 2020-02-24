@@ -6,7 +6,7 @@ tokenizer = BertWordPieceTokenizer()
 
 path="../myfilepath.txt"
 
-tokenizer.train(files=path,` vocab_size=15_000, min_frequency=2,special_tokens=[
+tokenizer.train(files=path, vocab_size=15_000, min_frequency=2,special_tokens=[
     '<pad>',
     '<s>',
     '</s>',
